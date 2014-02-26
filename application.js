@@ -16,9 +16,17 @@ $(document).ready(function() {
         	$(itemLabel).css('textDecoration','none');
     	};
 	});
-	//On click, takes the value of text field, checks for invaild inputs, and finally creates
+	//On click or enter key press, takes the value of text field, checks for invaild inputs, and finally creates
 	//a li element with input and label.
 	$('#submit').click(function() {
+		submitItem();
+	});	
+	$('#addItem').keydown(function(event) {
+		if (event.which === 13) {
+			submitItem();
+		}
+	});
+	function submitItem() {
 		var name = $('#addItem').val();
 		var id = name.replace(/[\s"']/g, "") .toLowerCase() + 'ListItem';
 		if (name.replace(/[\s"']/g, "") == "") {
@@ -27,7 +35,7 @@ $(document).ready(function() {
 			$('<li />', {id: id}).appendTo('#shoppingList').ready(function() {addCheckbox(id, name)});
 			var name = $('#addItem').val('');
 		};
-	});
+	}
 	//On click function that selects all list items and cross them out.
 	$('#selectAll').click(function() {
 		$('li').each(function() {
