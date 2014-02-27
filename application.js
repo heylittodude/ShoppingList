@@ -2,7 +2,7 @@ $(document).ready(function() {
 	//Function for adding a new checkbox with corresponding label.
 	function addCheckbox(id, name) {
    		var container = $('#'+id);
-   		var inputId = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;\[\]]/g, "");
+   		var inputId = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "");
    		$('<input />', { type: 'checkbox', id: inputId, value: inputId }).appendTo(container);
    		$('<label />', { 'for': inputId, text: name }).appendTo(container);
 	}
@@ -28,8 +28,8 @@ $(document).ready(function() {
 	});
 	function submitItem() {
 		var name = $('#addItem').val();
-		var id = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;\[\]]/g, "") .toLowerCase() + 'ListItem';
-		if (name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;\[\]]/g, "") == "") {
+		var id = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") .toLowerCase() + 'ListItem';
+		if (name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") == "") {
 			alert("Please enter an actual item.");
 		} else {
 			$('<li />', {id: id}).appendTo('#shoppingList').ready(function() {addCheckbox(id, name)});
