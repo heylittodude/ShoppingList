@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var idVault = [];
+	var idVault = ["20-sided dice", "Dagger"];
 	//Function for adding a new checkbox with corresponding label.
 	function addCheckbox(id, name) {
    		var container = $('#'+id);
