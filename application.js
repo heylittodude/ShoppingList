@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var idVault = ["20-sided dice", "Dagger"];
+	var idVault = ["20-sided dice", "dagger"];
 	//Function for adding a new checkbox with corresponding label.
 	function addCheckbox(id, name) {
    		var container = $('#'+id);
@@ -29,8 +29,8 @@ $(document).ready(function() {
 	});
 	function submitItem() {
 		var name = $('#addItem').val();
-		if (idVault.indexOf(name) === -1) {
-			idVault.push(name);
+		if (idVault.indexOf(name.toLowerCase()) === -1) {
+			idVault.push(name.toLowerCase());
 			var id = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") .toLowerCase() + 'ListItem';
 			if (name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") == "") {
 				alert("Please enter an actual item.");
@@ -61,7 +61,7 @@ $(document).ready(function() {
 	$('#removeSelected').click(function() {
 		$('li').each(function() {	
 			if($(this).find('input').is(':checked')) {
-				var idVaultValue = $(this).find('label').text();
+				var idVaultValue = $(this).find('label').text().toLowerCase();
 				var index = idVault.indexOf(idVaultValue);
 				idVault.splice(index, 1);
 				$(this).remove();
