@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	var idVault = [];
 	//Function for adding a new checkbox with corresponding label.
 	function addCheckbox(id, name) {
    		var container = $('#'+id);
@@ -28,13 +29,19 @@ $(document).ready(function() {
 	});
 	function submitItem() {
 		var name = $('#addItem').val();
-		var id = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") .toLowerCase() + 'ListItem';
-		if (name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") == "") {
-			alert("Please enter an actual item.");
+		if (idVault.indexOf(name) === -1) {
+			idVault.push(name);
+			var id = name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") .toLowerCase() + 'ListItem';
+			if (name.replace(/[\s"'&\/\\#,+()$~%.'":*?<>{}!@^&*=`;|\[\]]/g, "") == "") {
+				alert("Please enter an actual item.");
+				idVault.pop();
+			} else {
+				$('<li />', {id: id}).appendTo('#shoppingList').ready(function() {addCheckbox(id, name)});
+				var name = $('#addItem').val('');
+			};
 		} else {
-			$('<li />', {id: id}).appendTo('#shoppingList').ready(function() {addCheckbox(id, name)});
-			var name = $('#addItem').val('');
-		};
+			alert("This item is already on the list!");
+		}
 	}
 	//On click function that selects all list items and cross them out.
 	$('#selectAll').click(function() {
@@ -53,8 +60,12 @@ $(document).ready(function() {
 	//On click function that removes all selected list items.
 	$('#removeSelected').click(function() {
 		$('li').each(function() {	
-			if($(this).find('input').is(':checked')) 
+			if($(this).find('input').is(':checked')) {
+				var idVaultValue = $(this).find('label').text();
+				var index = idVault.indexOf(idVaultValue);
+				idVault.splice(index, 1);
 				$(this).remove();
+			}
 		});
 	});
 	//On click function that compares and sorts the list items currently on the shopping list.
